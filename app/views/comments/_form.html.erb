@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <%= form.hidden_field :idea_id %>
+
   <div class="field">
     <%= form.label :user_name %>
     <%= form.text_field :user_name %>
@@ -19,11 +21,6 @@
   <div class="field">
     <%= form.label :body %>
     <%= form.text_area :body %>
-  </div>
-
-  <div class="field">
-    <%= form.label :idea_id %>
-    <%= form.text_field :idea_id %>
   </div>
 
   <div class="actions">
