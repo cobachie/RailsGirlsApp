@@ -211,6 +211,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   carrierwave (~> 2.1)
+  image_processing (~> 1.2)
   jbuilder (~> 2.7)
   listen (~> 3.2)
   puma (~> 4.1)

@@ -7,7 +7,7 @@
 
   <div class="col-md-3">
     <p><b>Name: </b><%= @idea.name %></p>
-    <p><b>Description: </b><%= @idea.description %></p>
+    <p><b>Description: </b><%= @idea.content %></p>
     <p>
       <%= link_to 'Edit', edit_idea_path(@idea), class: "btn btn-sm btn-info" %>
       <%= link_to 'Delete', @idea, class: "btn btn-sm btn-danger", data: { confirm: '削除してもよろしいですか？' }, method: :delete %>

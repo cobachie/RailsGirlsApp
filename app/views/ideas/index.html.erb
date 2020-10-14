@@ -9,7 +9,7 @@
       <div class="col-md-4">
         <%= image_tag idea.picture_url, width: '100%' if idea.picture.present? %>
         <h4><%= link_to idea.name, idea %></h4>
-        <%= idea.description %>
+        <%#= idea.content %>
       </div>
     <% end %>
   </div>

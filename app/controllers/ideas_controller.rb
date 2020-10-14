@@ -4,7 +4,7 @@ class IdeasController < ApplicationController
   # GET /ideas
   # GET /ideas.json
   def index
-    @ideas = Idea.all
+    @ideas = Idea.with_rich_text_content
   end
 
   # GET /ideas/1
@@ -42,6 +42,7 @@ class IdeasController < ApplicationController
   # PATCH/PUT /ideas/1
   # PATCH/PUT /ideas/1.json
   def update
+    pp idea_params
     respond_to do |format|
       if @idea.update(idea_params)
         format.html { redirect_to @idea, notice: 'Idea was successfully updated.' }
@@ -71,6 +72,6 @@ class IdeasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def idea_params
-      params.require(:idea).permit(:name, :description, :picture)
+      params.require(:idea).permit(:name, :content, :picture)
     end
 end
