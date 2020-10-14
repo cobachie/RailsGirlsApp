@@ -24,17 +24,11 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
+    @comment = Comment.create(comment_params)
 
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
-      else
-        format.html { render :new }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
-    end
+    ActionCable.server.broadcast 'comment_channel', render_comment(@comment)
+
+    redirect_to(idea_path(id: comment_params[:idea_id]))
   end
 
   # PATCH/PUT /comments/1
@@ -62,13 +56,21 @@ class CommentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_comment
-      @comment = Comment.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def comment_params
-      params.require(:comment).permit(:user_name, :body, :idea_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def comment_params
+    params.require(:comment).permit(:user_name, :body, :idea_id)
+  end
+
+  def render_comment(comment)
+    render_to_string(
+      partial: 'ideas/comment',
+      locals: { comment: comment }
+    )
+  end
 end
