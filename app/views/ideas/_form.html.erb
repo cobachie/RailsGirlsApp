@@ -23,6 +23,9 @@
 
   <div class="field">
     <%= form.label :picture %>
+    <% if @idea.picture.attached? %>
+        <%= image_tag(@idea.picture, width: '100%') %>
+    <% end %>
     <%= form.file_field :picture %>
   </div>
 
