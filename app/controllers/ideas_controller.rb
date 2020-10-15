@@ -1,5 +1,5 @@
 class IdeasController < ApplicationController
-  before_action :set_idea, only: [:show, :edit, :update, :destroy]
+  before_action :set_idea, only: [:show, :edit, :update, :destroy, :like]
 
   # GET /ideas
   # GET /ideas.json
@@ -42,7 +42,6 @@ class IdeasController < ApplicationController
   # PATCH/PUT /ideas/1
   # PATCH/PUT /ideas/1.json
   def update
-    pp idea_params
     respond_to do |format|
       if @idea.update(idea_params)
         format.html { redirect_to @idea, notice: 'Idea was successfully updated.' }
@@ -64,14 +63,23 @@ class IdeasController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_idea
-      @idea = Idea.find(params[:id])
-    end
+  def like
+    @idea.increment! :likes_count
 
-    # Only allow a list of trusted parameters through.
-    def idea_params
-      params.require(:idea).permit(:name, :content, :picture)
-    end
+    render json: {
+      likes_count: @idea.likes_count
+    }
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_idea
+    @idea = Idea.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def idea_params
+    params.require(:idea).permit(:name, :content, :picture)
+  end
 end

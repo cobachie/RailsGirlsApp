@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
-  resources :comments
-  get 'pages/info'
   root to: "ideas#index"
-  resources :ideas
+
+  resources :ideas do
+    member do
+      patch :like
+    end
+  end
+  resources :comments
+
+  get 'pages/info'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
