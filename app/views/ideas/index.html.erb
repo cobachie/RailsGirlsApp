@@ -7,7 +7,7 @@
     <div class="row">
       <% group.compact.each do |idea| %>
         <div class="col-md-4">
-          <%= image_tag idea.picture_url, width: '100%' if idea.picture.present? %>
+          <%= image_tag idea.picture, width: '100%' if idea.picture.attached? %>
           <h4><%= link_to idea.name, idea %></h4>
           <%= link_to "#", class: "btn btn-link", data: { action: "click->idea#like", id: idea.id }, remote: true do %>
             Like (<span id="idea-<%= idea.id %>-likes"><%= idea.likes_count %></span>)
