@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
   root to: "ideas#index"
+
+  get    '/sign_in',   to: 'sessions#new'
+  post   '/sign_in',   to: 'sessions#create'
+  delete '/sign_out',  to: 'sessions#destroy'
 
   resources :ideas do
     member do
